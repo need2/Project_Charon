@@ -1,0 +1,35 @@
+1. Set your BIOS to use the DVD drive as the primary boot device.
+ 2. Boot with a Windows Repair CD. 
+ 3. Press a key when the message indicating "Press any key to boot from CD or DVD …" appears.
+ 4. Select a language, a time and currency, and a keyboard or input method, and then click Next. You are now in Repair Mode.
+ 5. Select an Operating System, then click Next.
+ 6. Select the Command Prompt.
+ 7. Identify the correct drive letter for your Windows installation. It could be a drive other than C: but it won't be X:. You do it by typing the commands
+    dir C:\Win* {Enter}
+    dir D:\Win* {Enter}
+    dir E:\Win* {Enter}
+    etc.
+    until you find the Windows folder.
+    I will call that drive "Q:".
+ 8. Type these commands:
+    cd /d Q:\windows\System32 {Enter}
+    move  sethc.exe  \  {Enter}
+    copy  cmd.exe  sethc.exe  {Enter}
+ 9. Reboot normally.
+10. When challenged for a password, tap the Shift key five times. You will see a small black screen.
+11. Type these commands:
+    net user  {Enter}
+    (To see a list of all accounts that exist on your machine)
+    net user Administrator {Enter}
+    (To see if the Administrator account is active)
+12. Type these commands:
+    net user "xxx" ppp  {Enter}
+    (Replace xxx with the account for which you wish to set a new password, and ppp with the new password)
+    net user Administrator /active:yes {Enter}
+    (To activate the Administrator account if desired)
+13. Log on under this account, using the new password.
+14. Reboot the machine into Repair Mode as per Steps 1..6 above.
+15. Type these commands:
+    cd /d Q:\windows\System32 {Enter}
+    copy \sethc.exe {Enter}
+16. Reboot into Windows.

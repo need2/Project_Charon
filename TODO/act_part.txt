@@ -1,0 +1,33 @@
+You can do it from the command line:
+
+
+Code:
+diskpart
+sel disk 1
+sel part 1
+detail partThis should print something like this:
+
+Code:
+DISKPART> detail part
+
+Partition 1
+Type  : 07
+Hidden: No
+Active: No
+
+  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+* Volume 4     D                NTFS   Partition    112 GB  HealthyThen type:
+
+Code:
+activeTo make it the active partition.
+typing 
+Code:
+detail partshould display the same as above once more, but this time active = yes.
+
+Type 
+Code:
+exitto quit the command-line partition manager.
+
+
+Note: the above assumes the Vista partition is the first partition (part 1) of the first drive (disk 1) 

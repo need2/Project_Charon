@@ -1,0 +1,40 @@
+Boot with the Seven DVD and go into Recovery Environment select "command prompt"
+
+NOTE:- the reference here is Vista same for Seven. Just substitute Seven for Vista 
+
+The first order of business is to make sure the MBR and bootsector contain the right references to the Vista bootloader:
+
+Replace x: in the commands below with the letter to your CD drive as detected by the Windows Recovery environment, at the prompt type:- (pressing enter after each line)
+
+bootrec.exe /fixmbr
+x:\boot\bootsect.exe /nt60 all /force
+
+Now we get rid of the old BCD registry, and create a new one instead.
+Note: We're assuming that the boot drive is drive C: below. If your computer is configured differently, be sure to use the appropriate drive letter here instead.
+
+del C:\boot\bcd
+bcdedit /createstore c:\boot\bcd.temp
+bcdedit.exe /store c:\boot\bcd.temp /create {bootmgr} /d "Windows Boot Manager"
+bcdedit.exe /import c:\boot\bcd.temp
+bcdedit.exe /set {bootmgr} device partition=C:
+bcdedit.exe /timeout 10
+del c:\boot\bcd.temp
+
+Now we have a clean, working Vista bootloader. But we need to add a Vista entry to it:
+
+bcdedit.exe /create /d "Windows Vista" /application osloader
+bcdedit.exe should return a message with a GUID for the newly-created entry, something like this:
+The entry {c0dfc4fa-cb21-11dc-81bf-005056c00008} was successfully created.
+
+You'll need to use the value that bcdedit.exe returned for you below, along with the drive letter for the drive that Windows Vista is installed to:
+
+bcdedit.exe /set {c0dfc4fa-cb21-11dc-81bf-005056c00008} device partition=C:
+bcdedit.exe /set {c0dfc4fa-cb21-11dc-81bf-005056c00008} osdevice partition=C:
+bcdedit.exe /set {c0dfc4fa-cb21-11dc-81bf-005056c00008} path \Windows\system32\winload.exe
+bcdedit.exe /set {c0dfc4fa-cb21-11dc-81bf-005056c00008} systemroot \Windows
+And, last of all, tell the Vista bootloader to boot the new entry by default:
+
+bcdedit.exe /displayorder {c0dfc4fa-cb21-11dc-81bf-005056c00008}
+bcdedit.exe /default {c0dfc4fa-cb21-11dc-81bf-005056c00008}
+
+Now the Vista bootloader has been nuked and rebuilt from scratch.

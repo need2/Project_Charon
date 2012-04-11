@@ -1,0 +1,74 @@
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main]
+"DisableScriptDebuggerIE"="yes"
+
+Default value: "DisableScriptDebuggerIE"=no
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main]
+"Error Dlg Displayed On Every Error"="no"
+
+Default value: "Error Dlg Displayed On Every Error"=no
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main]
+"Use FormSuggest"="Yes"
+
+Default value: No Registry Entry
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main]
+"TabProcGrowth"=dword:00000001
+
+Default value: No Registry Entry
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main]
+Play_Background_Sounds="yes"
+
+Default value: "Play_Background_Sounds"="no"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Download]
+CheckExeSignatures="yes"
+
+Default value: "CheckExeSignatures"=no
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings]
+"WarnonBadCertRecving"=dword:00000000
+
+Default value: "WarnonBadCertRecving"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments]
+"SaveZoneInformation"=dword:00000001
+
+Default value: "SaveZoneInformation"=dword:00000002
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableTaskMgr"=dword:00000001
+
+Default value: "DisableTaskMgr"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop]
+"NoChangingWallPaper"=dword:00000001
+
+Default value: "NoChangingWallPaper"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+"NoDesktop"=dword:00000001
+
+Default value: "NoDesktop"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+Hidden=dword:00000001
+
+Default value: "Hidden"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+ShowSuperHidden=dword:00000001	
+
+Default value: "ShowSuperHidden"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+SuperHidden=dword:00000001	
+
+Default value: "SuperHidden"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableTaskMgr"=dword:00000001
+
+Default value: "DisableTaskMgr"=dword:00000000
