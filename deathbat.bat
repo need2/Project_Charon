@@ -44,36 +44,59 @@ GOTO :eof
 
 :s_win_XP
 ECHO You have XP
-PAUSE
 goto :toolbox
 
 :s_win_2000
 ECHO You have Windows 2000
-PAUSE
 goto :toolbox
 
 :s_win_NT
-ECHO NT!
-PAUSE
+ECHO You have Windows NT
 goto :toolbox
 
 :s_win_vista
-ECHO You have Vista
-PAUSE
+ECHO You have Windows Vista
 goto :toolbox
 
 :s_win_7
 ECHO You have Windows 7
-PAUSE
 goto :toolbox
 
 :toolbox
 ::Begin area that tools will be chosen::
-ECHO Info will go here!
-ECHO Options will go here!
-ECHO Tools will go here!
-PAUSE
-goto :eof
+ECHO Welcome to the Deathbat Windows Multitool.
+ECHO The following are tools for fixing various issues that can arise in Windows.
+ECHO WARNING: I am not responsible for you breaking anything with this tool.
+ECHO -----------------------------------------------------------------
+ECHO.
+ECHO.
+ECHO 1. CD/DVD Drive registry fixer
+ECHO NOT AVAILABLE 2. Reset HP Recovery Media creation software
+ECHO 3. Quit
+SET menu_option=""
+SET /p menu_option= Please select a tool:
+IF %menu_option%==1 GOTO CD_REG_FIX
+ECHO "IF %menu_option%==2 GOTO HP_MEDIA"
+IF %menu_option%==3 GOTO EOF
+ECHO Not a valid option, please choose again.
+GOTO toolbox
+
+:CD_REG_FIX
+ECHO This tool will remove the registry keys responsible for causing Windows
+ECHO to fail to load the drivers for CD and DVD drives. No side effects known.
+ECHO Restart to enable/disable drive to see the results.
+ECHO.
+ECHO Do you want to run this tool?
+ECHO 1. Yes
+ECHO 2. No
+SET menu_option=""
+SET /p menu_option= Select an option:
+IF %menu_option%==1 ECHO Running...
+IF %menu_option%==2 GOTO toolbox
+IF not %menu_option%==1 IF not %menu_option%==2 GOTO toolbox
+
+ECHO CD Fix goes here.
+GOTO toolbox
 
 :EOF
 exit
