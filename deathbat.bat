@@ -6,64 +6,41 @@ COLOR 0b
 ::Begin OS detection::
 
 VER | find /i "Windows 95" >NUL
-IF NOT ERRORLEVEL 1 GOTO W9598ME
+IF NOT ERRORLEVEL 1 GOTO UNSUPP
 
 VER | find /i "Windows 98" >NUL
-IF NOT ERRORLEVEL 1 GOTO W9598ME
+IF NOT ERRORLEVEL 1 GOTO UNSUPP
 
 VER | find /i "Windows Millennium" >NUL
-IF NOT ERRORLEVEL 1 GOTO W9598ME
-
-VER | find "XP" > nul
-IF %errorlevel% EQU 0 GOTO s_win_XP
+IF NOT ERRORLEVEL 1 GOTO UNSUPP
 
 VER | find "2000" > nul
-IF %errorlevel% EQU 0 GOTO s_win_2000
+IF %errorlevel% EQU 0 GOTO UNSUPP
 
 VER | find "NT" > nul
-IF %errorlevel% EQU 0 GOTO s_win_NT
+IF %errorlevel% EQU 0 GOTO UNSUPP
+
+VER | find "XP" > nul
+IF %errorlevel% EQU 0 GOTO toolbox
 
 VER | find "Vista" > nul
-IF %errorlevel% EQU 0 GOTO s_win_vista
+IF %errorlevel% EQU 0 GOTO toolbox
 
 VER | find "7" > nul
-IF %errorlevel% EQU 0 GOTO s_win_7
+IF %errorlevel% EQU 0 GOTO toolbox
 
 ::Detection failure::
 ECHO Unknown OS! The tool will now close.
 PAUSE
 GOTO :EOF
 
-::Begin OS report and decide if tool can function::
-
-:W9598ME
-ECHO OS Unsupported. The tools will not run for your
-ECHO safety.
+:UNSUPP
+ECHO OS Unsupported. The tools will not run for your safety.
 PAUSE
 GOTO :eof
 
-:s_win_XP
-ECHO You have Windows XP
-goto :toolbox
-
-:s_win_2000
-ECHO You have Windows 2000
-goto :toolbox
-
-:s_win_NT
-ECHO You have Windows NT
-goto :toolbox
-
-:s_win_vista
-ECHO You have Windows Vista
-goto :toolbox
-
-:s_win_7
-ECHO You have Windows 7
-goto :toolbox
-
-:toolbox
 ::Begin area that tools will be chosen::
+:toolbox
 CLS
 ECHO Welcome to the Deathbat Windows Multitool.
 ECHO The following are tools for fixing various issues that can arise in Windows.
@@ -72,10 +49,10 @@ ECHO -----------------------------------------------------------------
 ECHO.
 ECHO.
 ECHO 1. CD/DVD Drive registry fixer
-ECHO NOT AVAILABLE 2. Reset HP Recovery Media creation software
+ECHO 2. Reset HP Recovery Media creation software
 ECHO 3. Quit
 SET menu_option=""
-SET /p menu_option= Please select a tool:
+SET /p menu_option= Please select an option: 
 IF %menu_option%==1 GOTO CD_REG_FIX
 IF %menu_option%==2 GOTO HP_MEDIA
 IF %menu_option%==3 GOTO EOF
@@ -92,7 +69,7 @@ ECHO Do you want to run this tool?
 ECHO 1. Yes
 ECHO 2. No
 SET menu_option=""
-SET /p menu_option= Select an option:
+SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
 IF %menu_option%==2 GOTO toolbox
 IF not %menu_option%==1 IF not %menu_option%==2 GOTO toolbox
@@ -111,7 +88,7 @@ ECHO Do you want to run this tool?
 ECHO 1. Yes
 ECHO 2. No
 SET menu_option=""
-SET /p menu_option= Select an option:
+SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
 IF %menu_option%==2 GOTO toolbox
 IF not %menu_option%==1 IF not %menu_option%==2 GOTO toolbox
