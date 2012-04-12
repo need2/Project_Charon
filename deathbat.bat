@@ -3,7 +3,7 @@ TITLE Deathbat!
 COLOR 0b
 :TOP
 
-:: Win9x checks ::
+::Begin OS detection::
 
 VER | find /i "Windows 95" >NUL
 IF NOT ERRORLEVEL 1 GOTO W9598ME
@@ -14,7 +14,6 @@ IF NOT ERRORLEVEL 1 GOTO W9598ME
 VER | find /i "Windows Millennium" >NUL
 IF NOT ERRORLEVEL 1 GOTO W9598ME
 
-:: NT/XP checks ::
 VER | find "XP" > nul
 IF %errorlevel% EQU 0 GOTO s_win_XP
 
@@ -24,7 +23,6 @@ IF %errorlevel% EQU 0 GOTO s_win_2000
 VER | find "NT" > nul
 IF %errorlevel% EQU 0 GOTO s_win_NT
 
-:: Vista/7 Checks::
 VER | find "Vista" > nul
 IF %errorlevel% EQU 0 GOTO s_win_vista
 
@@ -36,42 +34,44 @@ ECHO Unknown OS !
 PAUSE
 GOTO :EOF
 
-:: Win9x commands ::
+:: Begin OS report and decide if tool can function::
 
 :W9598ME
-ECHO OS Unsupported.
+ECHO OS Unsupported. The tools will not run for your
+ECHO safety.
 PAUSE
-GOTO :EOF
-
-:W98
-ECHO OS Unsupported.
-PAUSE
-GOTO :EOF
-
-:: NT/XP commands ::
+GOTO :eof
 
 :s_win_XP
 ECHO You have XP
 PAUSE
-goto :eof
+goto :toolbox
 
 :s_win_2000
 ECHO You have Windows 2000
 PAUSE
-goto :eof
+goto :toolbox
 
 :s_win_NT
 ECHO NT!
 PAUSE
-goto :eof
+goto :toolbox
 
 :s_win_vista
 ECHO You have Vista
 PAUSE
-goto :eof
+goto :toolbox
 
 :s_win_7
 ECHO You have Windows 7
+PAUSE
+goto :toolbox
+
+:toolbox
+::Begin area that tools will be chosen::
+ECHO Info will go here!
+ECHO Options will go here!
+ECHO Tools will go here!
 PAUSE
 goto :eof
 

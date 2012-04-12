@@ -1,0 +1,4 @@
+To do:
+Add the existing BAT files to Deathbat
+Think of ways to impliment the non bat files
+Streamline Deathbat
