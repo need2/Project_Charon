@@ -77,7 +77,7 @@ ECHO 3. Quit
 SET menu_option=""
 SET /p menu_option= Please select a tool:
 IF %menu_option%==1 GOTO CD_REG_FIX
-ECHO "IF %menu_option%==2 GOTO HP_MEDIA"
+IF %menu_option%==2 GOTO HP_MEDIA
 IF %menu_option%==3 GOTO EOF
 ECHO Not a valid option, please choose again.
 GOTO toolbox
@@ -99,6 +99,25 @@ IF not %menu_option%==1 IF not %menu_option%==2 GOTO toolbox
 
 REG DELETE HKLM\SYSTEM\CurrentControlSet\Control\Class\{4D36E965-E325-11CE-BFC1-08002BE10318} /v UpperFilters /f
 REG DELETE HKLM\SYSTEM\CurrentControlSet\Control\Class\{4D36E965-E325-11CE-BFC1-08002BE10318} /v LowerFilters /f
+GOTO toolbox
+
+:HP_MEDIA
+CLS
+ECHO This tool will reset the HP Recovery Media Creator program to its
+ECHO default state, allowing you to make additional sets of recovery
+ECHO discs.
+ECHO.
+ECHO Do you want to run this tool?
+ECHO 1. Yes
+ECHO 2. No
+SET menu_option=""
+SET /p menu_option= Select an option:
+IF %menu_option%==1 ECHO Running...
+IF %menu_option%==2 GOTO toolbox
+IF not %menu_option%==1 IF not %menu_option%==2 GOTO toolbox
+
+mkdir C:\recovery_temp
+move D:\hp\CDCreatorLog\*.* C:\recovery_temp
 GOTO toolbox
 
 :EOF
