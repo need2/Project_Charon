@@ -30,11 +30,11 @@ VER | find "7" > nul
 IF %errorlevel% EQU 0 GOTO s_win_7
 
 ::Detection failure::
-ECHO Unknown OS !
+ECHO Unknown OS! The tool will now close.
 PAUSE
 GOTO :EOF
 
-:: Begin OS report and decide if tool can function::
+::Begin OS report and decide if tool can function::
 
 :W9598ME
 ECHO OS Unsupported. The tools will not run for your
@@ -43,7 +43,7 @@ PAUSE
 GOTO :eof
 
 :s_win_XP
-ECHO You have XP
+ECHO You have Windows XP
 goto :toolbox
 
 :s_win_2000
@@ -64,6 +64,7 @@ goto :toolbox
 
 :toolbox
 ::Begin area that tools will be chosen::
+CLS
 ECHO Welcome to the Deathbat Windows Multitool.
 ECHO The following are tools for fixing various issues that can arise in Windows.
 ECHO WARNING: I am not responsible for you breaking anything with this tool.
@@ -82,6 +83,7 @@ ECHO Not a valid option, please choose again.
 GOTO toolbox
 
 :CD_REG_FIX
+CLS
 ECHO This tool will remove the registry keys responsible for causing Windows
 ECHO to fail to load the drivers for CD and DVD drives. No side effects known.
 ECHO Restart to enable/disable drive to see the results.
@@ -95,7 +97,8 @@ IF %menu_option%==1 ECHO Running...
 IF %menu_option%==2 GOTO toolbox
 IF not %menu_option%==1 IF not %menu_option%==2 GOTO toolbox
 
-ECHO CD Fix goes here.
+REG DELETE HKLM\SYSTEM\CurrentControlSet\Control\Class\{4D36E965-E325-11CE-BFC1-08002BE10318} /v UpperFilters /f
+REG DELETE HKLM\SYSTEM\CurrentControlSet\Control\Class\{4D36E965-E325-11CE-BFC1-08002BE10318} /v LowerFilters /f
 GOTO toolbox
 
 :EOF
