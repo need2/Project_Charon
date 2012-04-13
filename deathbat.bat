@@ -1,10 +1,8 @@
 @ECHO OFF
 TITLE Deathbat!
 COLOR 0c
-:TOP
 
 ::Begin OS detection::
-
 VER | find /i "Windows 95" >NUL
 IF NOT ERRORLEVEL 1 GOTO UNSUPP
 
@@ -39,8 +37,8 @@ ECHO OS Unsupported. The tools will not run for your safety.
 PAUSE
 GOTO :eof
 
-::Begin area that tools will be chosen::
 :toolbox
+::Toolbox main menu::
 CLS
 ECHO Welcome to the Deathbat Windows Multitool.
 ECHO The following are tools for fixing various issues that can arise in Windows.
@@ -60,6 +58,7 @@ ECHO Not a valid option, please choose again.
 GOTO toolbox
 
 :CD_REG_FIX
+::cd/dvd reg fix tool::
 CLS
 ECHO This tool will remove the registry keys responsible for causing Windows
 ECHO to fail to load the drivers for CD and DVD drives. No side effects known.
@@ -79,6 +78,7 @@ REG DELETE HKLM\SYSTEM\CurrentControlSet\Control\Class\{4D36E965-E325-11CE-BFC1-
 GOTO toolbox
 
 :HP_MEDIA
+::HP recovery media creation reset tool::
 CLS
 ECHO This tool will reset the HP Recovery Media Creator program to its
 ECHO default state, allowing you to make additional sets of recovery
