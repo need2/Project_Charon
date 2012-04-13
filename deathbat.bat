@@ -1,6 +1,6 @@
 @ECHO OFF
 TITLE Deathbat!
-COLOR 0b
+COLOR 0c
 :TOP
 
 ::Begin OS detection::
