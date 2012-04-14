@@ -166,7 +166,18 @@ IF %menu_option%==1 ECHO Running...
 IF %menu_option%==2 GOTO TOOLBOX
 IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
-ECHO Not yet built.
+:DLL_MENU
+CLS
+SET /p target= Please enter the full path to the folder containing the .DLL files: 
+SET /p state= Please either select (u)nregister or (r)egister: 
+SET /p info= Would you like to view the confirmation dialog windows? (Type 1 for yes): 
+IF NOT EXIST %target% ECHO Location does not exist! Try again.
+IF NOT EXIST %target% GOTO DLL_MENU
+IF NOT %state%==u IF NOT %state%==r ECHO Not an available option (%state%). Please select 'u' or 'r'.
+IF NOT %state%==u IF NOT %state%==r GOTO DLL_MENU
+
+IF NOT %info%==1 FOR %i in (%target%\*.dll) do regsvr32 /%state% /s %i
+IF %info%==1 FOR %i in (%target%\*.dll) do regsvr32 /%state% %i
 PAUSE
 GOTO TOOLBOX
 
