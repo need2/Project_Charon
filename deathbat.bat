@@ -1,6 +1,7 @@
 @ECHO OFF
 TITLE Deathbat!
 COLOR 0c
+SET fail=0
 
 ::Begin OS detection::
 VER | find /i "Windows 95" > NUL
@@ -20,12 +21,17 @@ IF %errorlevel% EQU 0 GOTO UNSUPP
 
 VER | find "XP" > NUL
 IF %errorlevel% EQU 0 SET is_xp=1
+IF %errorlevel% NEQ 0 SET /a fail=%fail%+1
 
 VER | find "Vista" > NUL
 IF %errorlevel% EQU 0 SET is_xp=0
+IF %errorlevel% NEQ 0 SET /a fail=%fail%+1
 
 VER | find "7" > NUL
 IF %errorlevel% EQU 0 SET is_xp=0
+IF %errorlevel% NEQ 0 SET /a fail=%fail%+1
+
+IF %fail%==3 GOTO UNSUPP
 
 GOTO TOOLBOX
 
