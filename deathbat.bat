@@ -3,40 +3,40 @@ TITLE Deathbat!
 COLOR 0c
 
 ::Begin OS detection::
-VER | find /i "Windows 95" >NUL
+VER | find /i "Windows 95" > NUL
 IF NOT ERRORLEVEL 1 GOTO UNSUPP
 
-VER | find /i "Windows 98" >NUL
+VER | find /i "Windows 98" > NUL
 IF NOT ERRORLEVEL 1 GOTO UNSUPP
 
-VER | find /i "Windows Millennium" >NUL
+VER | find /i "Windows Millennium" > NUL
 IF NOT ERRORLEVEL 1 GOTO UNSUPP
 
-VER | find "2000" > nul
+VER | find "2000" > NUL
 IF %errorlevel% EQU 0 GOTO UNSUPP
 
-VER | find "NT" > nul
+VER | find "NT" > NUL
 IF %errorlevel% EQU 0 GOTO UNSUPP
 
-VER | find "XP" > nul
-IF %errorlevel% EQU 0 SET Is_xp=1
+VER | find "XP" > NUL
+IF %errorlevel% EQU 0 SET is_xp=1
 
-VER | find "Vista" > nul
-IF %errorlevel% EQU 0 SET Is_xp=0
+VER | find "Vista" > NUL
+IF %errorlevel% EQU 0 SET is_xp=0
 
-VER | find "7" > nul
-IF %errorlevel% EQU 0 SET Is_xp=0
+VER | find "7" > NUL
+IF %errorlevel% EQU 0 SET is_xp=0
 
 IF %errorlevel% NEQ 0 GOTO UNSUPP
 
-GOTO toolbox
+GOTO TOOLBOX
 
 :UNSUPP
 ECHO OS Unsupported. The tools will not run for your safety.
 PAUSE
-GOTO :eof
+GOTO :EOF
 
-:toolbox
+:TOOLBOX
 ::Toolbox main menu::
 CLS
 ECHO Welcome to the Deathbat Windows Multitool.
@@ -58,7 +58,7 @@ IF %menu_option%==3 GOTO SFC
 IF %menu_option%==4 GOTO SFC_LOG
 IF %menu_option%==5 GOTO EOF
 ECHO Not a valid option, please choose again.
-GOTO toolbox
+GOTO TOOLBOX
 
 :CD_REG_FIX
 ::cd/dvd reg fix tool::
@@ -73,13 +73,13 @@ ECHO 2. No
 SET menu_option=""
 SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
-IF %menu_option%==2 GOTO toolbox
-IF not %menu_option%==1 IF not %menu_option%==2 GOTO toolbox
+IF %menu_option%==2 GOTO TOOLBOX
+IF not %menu_option%==1 IF not %menu_option%==2 GOTO TOOLBOX
 
 REG DELETE HKLM\SYSTEM\CurrentControlSet\Control\Class\{4D36E965-E325-11CE-BFC1-08002BE10318} /v UpperFilters /f
 REG DELETE HKLM\SYSTEM\CurrentControlSet\Control\Class\{4D36E965-E325-11CE-BFC1-08002BE10318} /v LowerFilters /f
 PAUSE
-GOTO toolbox
+GOTO TOOLBOX
 
 :HP_MEDIA
 ::HP recovery media creation reset tool::
@@ -94,13 +94,15 @@ ECHO 2. No
 SET menu_option=""
 SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
-IF %menu_option%==2 GOTO toolbox
-IF not %menu_option%==1 IF not %menu_option%==2 GOTO toolbox
+IF %menu_option%==2 GOTO TOOLBOX
+IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
-mkdir C:\recovery_temp
-move D:\hp\CDCreatorLog\*.* C:\recovery_temp
+MKDIR C:\recovery_temp
+MOVE D:\hp\CDCreatorLog\*.* C:\recovery_temp
+MOVE D:\RMCStatus.bin C:\recovery_temp MOVE C:\Windows\System32\Rebecca.dat C:\recovery_temp
+MOVE C:\Program Files (x86)\Hewlett-Packard\HP Recovery Manager\RMCStatus.bin C:\recovery_temp
 PAUSE
-GOTO toolbox
+GOTO TOOLBOX
 
 :SFC
 ::Windows Secure File Checker helper tool::
@@ -117,12 +119,12 @@ ECHO 2. No
 SET menu_option=""
 SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
-IF %menu_option%==2 GOTO toolbox
-IF not %menu_option%==1 IF not %menu_option%==2 GOTO toolbox
+IF %menu_option%==2 GOTO TOOLBOX
+IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
-IF %Is_xp%==1 START START sfc.exe /scannow
-IF %Is_xp%==0 START sfc /scannow
-GOTO toolbox
+IF %is_xp%==1 START START sfc.exe /scannow
+IF %is_xp%==0 START sfc /scannow
+GOTO TOOLBOX
 
 :SFC_LOG
 ::Retrieve the SFC log in Vista and 7::
@@ -139,12 +141,12 @@ ECHO 2. No
 SET menu_option=""
 SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
-IF %menu_option%==2 GOTO toolbox
-IF not %menu_option%==1 IF not %menu_option%==2 GOTO toolbox
+IF %menu_option%==2 GOTO TOOLBOX
+IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
-IF %Is_xp%==1 GOTO toolbox
-findstr /c:"[SR]" %windir%\Logs\CBS\CBS.log >%userprofile%\Desktop\sfcdetails.txt
-GOTO toolbox
+IF %is_xp%==1 GOTO TOOLBOX
+FINDSTR /c:"[SR]" %windir%\Logs\CBS\CBS.log >%userprofile%\Desktop\sfcdetails.txt
+GOTO TOOLBOX
 
 :EOF
-exit
+EXIT
