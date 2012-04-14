@@ -27,8 +27,6 @@ IF %errorlevel% EQU 0 SET is_xp=0
 VER | find "7" > NUL
 IF %errorlevel% EQU 0 SET is_xp=0
 
-IF %errorlevel% NEQ 0 GOTO UNSUPP
-
 GOTO TOOLBOX
 
 :UNSUPP
