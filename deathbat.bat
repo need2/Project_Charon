@@ -49,14 +49,16 @@ ECHO 1. CD/DVD Drive registry fixer
 ECHO 2. Reset HP Recovery Media creation software
 ECHO 3. Start Windows Secure File Checker
 ECHO 4. Create the SFC log for Vista and 7
-ECHO 5. Quit
+ECHO 5. Mass DLL register/unregister
+ECHO 6. Quit
 SET menu_option=""
 SET /p menu_option= Please select an option: 
 IF %menu_option%==1 GOTO CD_REG_FIX
 IF %menu_option%==2 GOTO HP_MEDIA
 IF %menu_option%==3 GOTO SFC
 IF %menu_option%==4 GOTO SFC_LOG
-IF %menu_option%==5 GOTO EOF
+IF %menu_option%==5 GOTO DLL
+IF %menu_option%==6 GOTO EOF
 ECHO Not a valid option, please choose again.
 GOTO TOOLBOX
 
@@ -146,6 +148,26 @@ IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
 IF %is_xp%==1 GOTO TOOLBOX
 FINDSTR /c:"[SR]" %windir%\Logs\CBS\CBS.log >%userprofile%\Desktop\sfcdetails.txt
+GOTO TOOLBOX
+
+:DLL
+::DLL mass register / unregister::
+CLS
+ECHO The directable DLL bomber will go here.
+ECHO This will be a tool that will register or unregister EVERY DLL in the selected
+ECHO folder.
+ECHO.
+ECHO Do you want to run this tool?
+ECHO 1. Yes
+ECHO 2. No
+SET menu_option=""
+SET /p menu_option= Select an option: 
+IF %menu_option%==1 ECHO Running...
+IF %menu_option%==2 GOTO TOOLBOX
+IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
+
+ECHO Not yet built.
+PAUSE
 GOTO TOOLBOX
 
 :EOF
