@@ -1,4 +1,4 @@
-README WILL GO HERE
+WARNING: EXPERIMENTAL BRANCH. DO NOT USE.
 
-Project Deathbat will be a Windows Multitool for finding and fixing various problems that seem to get
-missed by most other tools.
+This will be used for implimenting and testing new functions for Deathbat.
+This way I stop breaking the main branch.
