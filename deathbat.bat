@@ -2,6 +2,8 @@
 TITLE Deathbat!
 COLOR 0c
 SET fail=0
+::Created by the GCM team::
+::Lane Garland (aka need2)::
 
 ::Begin OS detection::
 VER | find /i "Windows 95" > NUL
