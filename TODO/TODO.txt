@@ -3,3 +3,4 @@ Add the existing BAT files to Deathbat
 Think of ways to impliment the non bat files
 Streamline Deathbat
 Have DEATHBAT request Admin rights in Vista/7
+Investigate other manufacturers' recovery software and find ways to reset their media creation
