@@ -2,6 +2,8 @@
 TITLE Deathbat!
 COLOR 0c
 SET fail=0
+::Created by the GCM team::
+::Lane Garland (aka need2)::
 
 ::Begin OS detection::
 VER | find /i "Windows 95" > NUL
@@ -104,9 +106,16 @@ IF %menu_option%==2 GOTO TOOLBOX
 IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
 MKDIR C:\recovery_temp
-MOVE D:\hp\CDCreatorLog\*.* C:\recovery_temp
-MOVE D:\RMCStatus.bin C:\recovery_temp MOVE C:\Windows\System32\Rebecca.dat C:\recovery_temp
-MOVE C:\Program Files (x86)\Hewlett-Packard\HP Recovery Manager\RMCStatus.bin C:\recovery_temp
+IF EXIST D:\hp\CDCreatorLog MOVE D:\hp\CDCreatorLog\*.* C:\recovery_temp
+IF EXIST D:\RMCStatus.bin MOVE D:\RMCStatus.bin C:\recovery_temp
+IF EXIST C:\Windows\System32\Rebecca.dat MOVE C:\Windows\System32\Rebecca.dat C:\recovery_temp
+IF EXIST C:\Program Files (x86)\Hewlett-Packard\HP Recovery Manager\RMCStatus.bin MOVE C:\Program Files (x86)\Hewlett-Packard\HP Recovery Manager\RMCStatus.bin C:\recovery_temp
+IF EXIST D:\HPCD.SYS MOVE D:\HPCD.SYS C:\recovery_temp
+IF EXIST C:\Windows\SMINST\HPCD.SYS MOVE C:\Windows\SMINST\HPCD.SYS C:\recovery_temp
+IF EXIST C:\ProgramData\Hewlett-Packard\Recovery\hpdrcu.prc MOVE C:\ProgramData\Hewlett-Packard\Recovery\hpdrcu.prc C:\recovery_temp
+IF EXIST D:\hpdrcu.prc MOVE D:\hpdrcu.prc C:\recovery_temp
+ECHO Files moved... you can delete C:\recovery_temp if you don't want
+ECHO backups of removed files.
 PAUSE
 GOTO TOOLBOX
 
