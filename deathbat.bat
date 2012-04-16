@@ -5,8 +5,6 @@ SET fail=0
 ::Created by the GCM team::
 ::Lane Garland (aka need2)::
 
-::TEST CHANGE::
-
 ::Begin OS detection::
 VER | find /i "Windows 95" > NUL
 IF NOT ERRORLEVEL 1 GOTO UNSUPP
