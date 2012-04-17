@@ -46,25 +46,27 @@ GOTO :EOF
 
 :ELEVATE
 ::Begin experimental admin check::
->nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+>NUL 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
 
-::If error flag set, we do not have admin::
-if %errorlevel% NEQ 0 (
-    echo Requesting administrative privileges...
-    goto UACPrompt
-) else ( goto gotAdmin )
+::If error flag is not zero, charon does not have admin rights::
+IF %errorlevel% NEQ 0 (
+    ECHO Requesting administrative privileges, please allow or this tool cannot run.
+    GOTO UACPROMPT
+) ELSE ( GOTO GOTADMIN )
 
-:UACPrompt
-    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
-    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+:UACPROMPT
+::Creates a temporary script to request administrative rights for a new instance of charon::
+ECHO SET UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+ECHO UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
 
-    "%temp%\getadmin.vbs"
-    exit /B
+"%temp%\getadmin.vbs"
+EXIT /B
 
-:gotAdmin
-    if exist "%temp%\getadmin.vbs" ( del "%temp%\getadmin.vbs" )
-    pushd "%CD%"
-    CD /D "%~dp0"
+:GOTADMIN
+::Cleanup after temporary script::
+IF EXIST "%temp%\getadmin.vbs" DEL "%temp%\getadmin.vbs"
+PUSHD "%CD%"
+CD /D "%~dp0"
 
 :TOOLBOX
 ::Toolbox main menu::
