@@ -35,12 +35,40 @@ IF %errorlevel% NEQ 0 SET /a fail=%fail%+1
 
 IF %fail%==3 GOTO UNSUPP
 
-GOTO TOOLBOX
+ECHO %is_xp%
+ECHO %fail%
+PAUSE
+
+IF %is_xp%==1 GOTO TOOLBOX
+
+GOTO ElEVATE
 
 :UNSUPP
 ECHO OS Unsupported. The tools will not run for your safety.
 PAUSE
 GOTO :EOF
+
+:ELEVATE
+::Begin experimental admin check::
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+
+REM --> If error flag set, we do not have admin.
+if '%errorlevel%' NEQ '0' (
+    echo Requesting administrative privileges...
+    goto UACPrompt
+) else ( goto gotAdmin )
+
+:UACPrompt
+    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+
+    "%temp%\getadmin.vbs"
+    exit /B
+
+:gotAdmin
+    if exist "%temp%\getadmin.vbs" ( del "%temp%\getadmin.vbs" )
+    pushd "%CD%"
+    CD /D "%~dp0"
 
 :TOOLBOX
 ::Toolbox main menu::
