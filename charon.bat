@@ -1,5 +1,5 @@
 @ECHO OFF
-TITLE Deathbat!
+TITLE Charon
 COLOR 0c
 SET fail=0
 ::Created by the GCM team::
@@ -45,7 +45,7 @@ GOTO :EOF
 :TOOLBOX
 ::Toolbox main menu::
 CLS
-ECHO Welcome to the Deathbat Windows Multitool.
+ECHO Welcome to the Charon Windows Multitool.
 ECHO The following are tools for fixing various issues that can arise in Windows.
 ECHO WARNING: I am not responsible for you breaking anything with this tool.
 ECHO -----------------------------------------------------------------
