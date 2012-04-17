@@ -35,10 +35,6 @@ IF %errorlevel% NEQ 0 SET /a fail=%fail%+1
 
 IF %fail%==3 GOTO UNSUPP
 
-ECHO %is_xp%
-ECHO %fail%
-PAUSE
-
 IF %is_xp%==1 GOTO TOOLBOX
 
 GOTO ElEVATE
@@ -52,8 +48,8 @@ GOTO :EOF
 ::Begin experimental admin check::
 >nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
 
-REM --> If error flag set, we do not have admin.
-if '%errorlevel%' NEQ '0' (
+::If error flag set, we do not have admin::
+if %errorlevel% NEQ 0 (
     echo Requesting administrative privileges...
     goto UACPrompt
 ) else ( goto gotAdmin )
