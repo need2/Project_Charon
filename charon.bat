@@ -1,9 +1,10 @@
 @ECHO OFF
-TITLE Charon
+TITLE Charon v0.5.0
 COLOR 0c
 SET fail=0
 ::Created by the GCM team::
 ::Lane Garland (aka need2)::
+::Revision 0.5.0
 
 ::Begin OS detection::
 VER | find /i "Windows 95" > NUL
