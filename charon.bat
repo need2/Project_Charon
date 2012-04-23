@@ -1,11 +1,10 @@
 @ECHO OFF
-TITLE Charon v0.5.10
+TITLE Charon v0.5.11rc2
 COLOR 0c
-SET fail=0
 ::Created by the GCM team::
 ::Lane Garland (aka need2)::
 ::Tom B (aka r3l0ad)::
-::Revision 0.5.10::
+::Revision 0.5.11rc2::
 
 ::Begin OS detection::
 ::Set default value. If OS is not found, then we don't support it!::
@@ -68,7 +67,6 @@ CLS
 ECHO Welcome to the Charon Windows Multitool.
 ECHO The following are tools for fixing various issues that can arise in Windows.
 ECHO WARNING: I am not responsible for you breaking anything with this tool.
-ECHO You are running this machine in Windows %det_os%.
 ECHO -----------------------------------------------------------------
 ECHO.
 ECHO.
