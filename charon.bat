@@ -1,10 +1,10 @@
 @ECHO OFF
-TITLE Charon v0.5.11rc2
+TITLE Charon v0.5.12
 COLOR 0c
 ::Created by the GCM team::
 ::Lane Garland (aka need2)::
 ::Tom B (aka r3l0ad)::
-::Revision 0.5.11rc2::
+::Revision 0.5.12::
 
 ::Begin OS detection::
 ::Set default value. If OS is not found, then we don't support it!::
@@ -156,7 +156,7 @@ IF %menu_option%==1 ECHO Running...
 IF %menu_option%==2 GOTO TOOLBOX
 IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
-IF %det_os%==xp START START sfc.exe /scannow
+IF %det_os%==xp START sfc.exe /scannow
 IF NOT %det_os%==xp START sfc /scannow
 GOTO TOOLBOX
 
