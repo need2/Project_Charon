@@ -1,47 +1,65 @@
 @ECHO OFF
-TITLE Charon v0.5.0
+TITLE Charon v0.5.12
 COLOR 0c
-SET fail=0
 ::Created by the GCM team::
 ::Lane Garland (aka need2)::
-::Revision 0.5.0
+::Tom B (aka r3l0ad)::
+::Revision 0.5.12::
 
 ::Begin OS detection::
-VER | find /i "Windows 95" > NUL
-IF NOT ERRORLEVEL 1 GOTO UNSUPP
+::Set default value. If OS is not found, then we don't support it!::
+SET det_os=unsupp
 
-VER | find /i "Windows 98" > NUL
-IF NOT ERRORLEVEL 1 GOTO UNSUPP
+ver | findstr /i "5\.1\." > nul
+IF %ERRORLEVEL% EQU 0 (
+	SET det_os=xp
+	GOTO TOOLBOX
+)
 
-VER | find /i "Windows Millennium" > NUL
-IF NOT ERRORLEVEL 1 GOTO UNSUPP
+ver | findstr /i "6\.0\." > nul
+IF %ERRORLEVEL% EQU 0 SET det_os=vista
 
-VER | find "2000" > NUL
-IF %errorlevel% EQU 0 GOTO UNSUPP
+ver | findstr /i "6\.1\." > nul
+IF %ERRORLEVEL% EQU 0 SET det_os=7
 
-VER | find "NT" > NUL
-IF %errorlevel% EQU 0 GOTO UNSUPP
-
-VER | find "XP" > NUL
-IF %errorlevel% EQU 0 SET is_xp=1
-IF %errorlevel% NEQ 0 SET /a fail=%fail%+1
-
-VER | find "Vista" > NUL
-IF %errorlevel% EQU 0 SET is_xp=0
-IF %errorlevel% NEQ 0 SET /a fail=%fail%+1
-
-VER | find "7" > NUL
-IF %errorlevel% EQU 0 SET is_xp=0
-IF %errorlevel% NEQ 0 SET /a fail=%fail%+1
-
-IF %fail%==3 GOTO UNSUPP
-
-GOTO TOOLBOX
+IF %det_os%==unsupp (
+	GOTO UNSUPP
+) ELSE (
+	GOTO ELEVATE
+)
 
 :UNSUPP
+::Report unsupported OS::
 ECHO OS Unsupported. The tools will not run for your safety.
+ECHO If you believe this is wrong, or know that these tools are
+ECHO safe in your OS, please create an issue report at:
+ECHO https://github.com/need2/Project_Charon
 PAUSE
 GOTO :EOF
+
+:ELEVATE
+::Begin admin check::
+>NUL 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+
+::If error flag is not zero, charon does not have admin rights::
+IF %errorlevel% NEQ 0 (
+    ECHO Requesting administrative privileges, please allow or this tool cannot run.
+    GOTO UACPROMPT
+) ELSE ( GOTO GOTADMIN )
+
+:UACPROMPT
+::Creates a temporary script to request administrative rights for a new instance of charon::
+ECHO SET UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+ECHO UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+
+"%temp%\getadmin.vbs"
+EXIT /B
+
+:GOTADMIN
+::Cleanup after temporary script::
+IF EXIST "%temp%\getadmin.vbs" DEL "%temp%\getadmin.vbs"
+PUSHD "%CD%"
+CD /D "%~dp0"
 
 :TOOLBOX
 ::Toolbox main menu::
@@ -83,7 +101,7 @@ SET menu_option=""
 SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
 IF %menu_option%==2 GOTO TOOLBOX
-IF not %menu_option%==1 IF not %menu_option%==2 GOTO TOOLBOX
+IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
 REG DELETE HKLM\SYSTEM\CurrentControlSet\Control\Class\{4D36E965-E325-11CE-BFC1-08002BE10318} /v UpperFilters /f
 REG DELETE HKLM\SYSTEM\CurrentControlSet\Control\Class\{4D36E965-E325-11CE-BFC1-08002BE10318} /v LowerFilters /f
@@ -138,8 +156,8 @@ IF %menu_option%==1 ECHO Running...
 IF %menu_option%==2 GOTO TOOLBOX
 IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
-IF %is_xp%==1 START START sfc.exe /scannow
-IF %is_xp%==0 START sfc /scannow
+IF %det_os%==xp START sfc.exe /scannow
+IF NOT %det_os%==xp START sfc /scannow
 GOTO TOOLBOX
 
 :SFC_LOG
@@ -160,7 +178,7 @@ IF %menu_option%==1 ECHO Running...
 IF %menu_option%==2 GOTO TOOLBOX
 IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
-IF %is_xp%==1 GOTO TOOLBOX
+IF %det_os%==xp GOTO TOOLBOX
 FINDSTR /c:"[SR]" %windir%\Logs\CBS\CBS.log >%userprofile%\Desktop\sfcdetails.txt
 GOTO TOOLBOX
 
