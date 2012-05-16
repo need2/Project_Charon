@@ -1,0 +1,5 @@
+Service killer
+
+
+ sc stop messenger
+sc config Messenger start=disabled

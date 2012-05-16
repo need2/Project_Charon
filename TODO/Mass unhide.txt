@@ -1,0 +1,1 @@
+Attrib /d /s -h -s
