@@ -67,15 +67,16 @@ CLS
 ECHO Welcome to the Charon Windows Multitool.
 ECHO The following are tools for fixing various issues that can arise in Windows.
 ECHO WARNING: I am not responsible for you breaking anything with this tool.
-ECHO -----------------------------------------------------------------
+ECHO ----------------------------------------------------------------------------
 ECHO.
 ECHO.
 ECHO 1. CD/DVD Drive registry fixer
-ECHO 2. Reset HP Recovery Media creation software
+ECHO 2. Reset HP Recovery Media creation software (SFC)
 ECHO 3. Start Windows Secure File Checker
 ECHO 4. Create the SFC log for Vista and 7
 ECHO 5. Mass DLL register/unregister
 ECHO 6. Quit
+ECHO.
 SET menu_option=""
 SET /p menu_option= Please select an option: 
 IF %menu_option%==1 GOTO CD_REG_FIX
@@ -92,11 +93,12 @@ GOTO TOOLBOX
 CLS
 ECHO This tool will remove the registry keys responsible for causing Windows
 ECHO to fail to load the drivers for CD and DVD drives. No side effects known.
-ECHO Restart or enable/disable drive to see the results.
+ECHO Restart or disable then enable the drive to see the results.
 ECHO.
 ECHO Do you want to run this tool?
 ECHO 1. Yes
 ECHO 2. No
+ECHO.
 SET menu_option=""
 SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
@@ -118,6 +120,7 @@ ECHO.
 ECHO Do you want to run this tool?
 ECHO 1. Yes
 ECHO 2. No
+ECHO.
 SET menu_option=""
 SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
@@ -145,11 +148,13 @@ ECHO This tool will start the Windows Secure File Checker for your OS.
 ECHO This will verify that various critical Windows files are in their
 ECHO original state, unmodified and unmoved. If they are changed it will
 ECHO try to replace the damaged file with a clean copy. XP may prompt for
-ECHO your install disc.
+ECHO your install disc. This can also undo some changes made by third
+ECHO party OS mods.
 ECHO.
 ECHO Do you want to run this tool?
 ECHO 1. Yes
 ECHO 2. No
+ECHO.
 SET menu_option=""
 SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
@@ -163,15 +168,15 @@ GOTO TOOLBOX
 :SFC_LOG
 ::Retrieve the SFC log in Vista and 7::
 CLS
-ECHO This will retrieve the SFC log for Windows Vista and Windows 7
-ECHO and place it in a text file on the current user's desktop. This
-ECHO log is useful for reviewing files that were repaired or not
-ECHO repairable.
+ECHO This will retrieve the SFC log for Windows Vista and Windows 7 and
+ECHO place it in a text file on the current user's desktop. This log is
+ECHO useful for reviewing files that were repaired or not repairable.
 ECHO NOTE: Does not work in XP. Your SFC log is in your Event Viewer.
 ECHO.
 ECHO Do you want to run this tool?
 ECHO 1. Yes
 ECHO 2. No
+ECHO.
 SET menu_option=""
 SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
@@ -185,30 +190,31 @@ GOTO TOOLBOX
 :DLL
 ::DLL mass register / unregister::
 CLS
-ECHO The directable DLL bomber will go here.
-ECHO This will be a tool that will register or unregister EVERY DLL in the selected
-ECHO folder.
+ECHO This will register or unregister EVERY .dll in the folder you select.
+ECHO This is useful for manually removing or repairing programs. Do NOT
+ECHO use this unless you know what you are doing! You can break your OS.
 ECHO.
 ECHO Do you want to run this tool?
 ECHO 1. Yes
 ECHO 2. No
+ECHO.
 SET menu_option=""
 SET /p menu_option= Select an option: 
 IF %menu_option%==1 ECHO Running...
 IF %menu_option%==2 GOTO TOOLBOX
 IF NOT %menu_option%==1 IF NOT %menu_option%==2 GOTO TOOLBOX
 
-:DLL_MENU
+:DLL_MENU_A
 SET /p target= Please enter the full path to the folder containing the .DLL files: 
 IF NOT EXIST %target% ECHO Location does not exist! Try again.
-IF NOT EXIST %target% GOTO DLL_MENU
+IF NOT EXIST %target% GOTO DLL_MENU_A
+:DLL_MENU_B
 SET /p state= Please either select (u)nregister or (r)egister: 
 IF NOT %state%==u IF NOT %state%==r ECHO Not an available option (%state%). Please select 'u' or 'r'.
-IF NOT %state%==u IF NOT %state%==r GOTO DLL_MENU
-SET /p info= Would you like to view the confirmation dialog windows? (Type 1 for yes): 
+IF NOT %state%==u IF NOT %state%==r GOTO DLL_MENU_B
 
-IF NOT %info%==1 FOR %%i in (%target%\*.dll) do regsvr32 /%state% /s %%i
-IF %info%==1 FOR %%i in (%target%\*.dll) do regsvr32 /%state% %%i
+IF %state%==r FOR %%i in (%target%\*.dll) do regsvr32 %%i
+IF %state%==u FOR %%i in (%target%\*.dll) do regsvr32 /u %%i
 PAUSE
 GOTO TOOLBOX
 
