@@ -22,6 +22,12 @@ IF %ERRORLEVEL% EQU 0 SET det_os=vista
 ver | findstr /i "6\.1\." > nul
 IF %ERRORLEVEL% EQU 0 SET det_os=7
 
+::Change the following to the proper version string for 8 support.
+::Also, test DLL bomber in 8.
+::
+::ver | findstr /i "windows 8 string" > nul
+::IF %ERRORLEVEL% EQU 0 SET det_os=8
+
 IF %det_os%==unsupp (
 	GOTO UNSUPP
 ) ELSE (
