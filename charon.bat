@@ -78,7 +78,8 @@ ECHO 2. Reset HP Recovery Media creation software (SFC)
 ECHO 3. Start Windows Secure File Checker
 ECHO 4. Create the SFC log for Vista and 7
 ECHO 5. Mass DLL register/unregister
-ECHO 6. Quit
+ECHO 6. UNHIDE
+ECHO 7. Quit
 ECHO.
 SET menu_option=""
 SET /p menu_option= Please select an option: 
@@ -87,7 +88,8 @@ IF %menu_option%==2 GOTO HP_MEDIA
 IF %menu_option%==3 GOTO SFC
 IF %menu_option%==4 GOTO SFC_LOG
 IF %menu_option%==5 GOTO DLL
-IF %menu_option%==6 GOTO EOF
+IF %menu_option%==6 GOTO UNHIDE
+IF %menu_option%==7 GOTO EOF
 ECHO Not a valid option, please choose again.
 GOTO TOOLBOX
 
@@ -223,12 +225,21 @@ GOTO TOOLBOX
 
 :UNHIDE
 ::Staging
+::Appears to have an issue accessing various Windows and Program Files folders. Usually the virus
+::that hides the user's files only target the actual native user folders. Perhaps make this targetable,
+::and/or smart-targetting only current user. Would also save processing time. Even better would be to identify
+::if the virus only targets completely native folders, or ALL folders in the user file.
 CLS
 ECHO TODO.
 ECHO Mass file unhide script to be implimented here.
 ECHO.
+PAUSE
 ::Intended to unhide all files on a hard drive. Useful to clean up after some nasty viruses.
-::ATTRIB /d /s -h -s
+ECHO NOT Running, please wait. This will take some time.
+::ATTRIB C:\* /d /s -h -s
+ECHO Complete.
+PAUSE
 GOTO TOOLBOX
+
 :EOF
 EXIT
