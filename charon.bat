@@ -221,5 +221,14 @@ IF %state%==u FOR %%i in (%target%\*.dll) do regsvr32 /u %%i
 PAUSE
 GOTO TOOLBOX
 
+:UNHIDE
+::Staging
+CLS
+ECHO TODO.
+ECHO Mass file unhide script to be implimented here.
+ECHO.
+::Intended to unhide all files on a hard drive. Useful to clean up after some nasty viruses.
+::ATTRIB /d /s -h -s
+GOTO TOOLBOX
 :EOF
 EXIT
