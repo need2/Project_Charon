@@ -229,7 +229,6 @@ GOTO TOOLBOX
 ::that hides the user's files only target the actual native user folders. Perhaps make this targetable,
 ::and/or smart-targetting only current user. Would also save processing time. Even better would be to identify
 ::if the virus only targets completely native folders, or ALL folders in the user file.
-::TEST COMMIT NOTHING TO SEE HERE
 CLS
 ECHO TODO.
 ECHO Mass file unhide script to be implimented here.
