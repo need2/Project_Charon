@@ -232,6 +232,7 @@ GOTO TOOLBOX
 CLS
 ECHO TODO.
 ECHO Mass file unhide script to be implimented here.
+ECHO Depricated for now, not stable.
 ECHO.
 PAUSE
 ::Intended to unhide all files on a hard drive. Useful to clean up after some nasty viruses.
