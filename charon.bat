@@ -1,10 +1,10 @@
 @ECHO OFF
-TITLE Charon v0.5.2
+TITLE Charon v0.5.3
 COLOR 0c
 ::Created by the GCM team::
 ::Lane Garland (aka need2)::
 ::Tom B (aka r3l0ad)::
-::Revision 0.5.2::
+::Revision 0.5.3::
 
 ::Begin OS detection::
 ::Set default value. If OS is not found, then we don't support it!::
@@ -71,8 +71,8 @@ ECHO ---------------------------------------------------------------------------
 ECHO.
 ECHO.
 ECHO 1. CD/DVD Drive registry fixer
-ECHO 2. Reset HP Recovery Media creation software (SFC)
-ECHO 3. Start Windows Secure File Checker
+ECHO 2. Reset HP Recovery Media creation software
+ECHO 3. Start Windows Secure File Checker (SFC)
 ECHO 4. Create the SFC log for Vista and 7
 ECHO 5. Mass DLL register/unregister
 ECHO 6. Quit
